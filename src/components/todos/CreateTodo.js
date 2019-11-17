@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 class CreateTodo extends Component {
 
@@ -13,29 +13,39 @@ class CreateTodo extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.addTodo(this.state)
+    this.setState({
+      text: '',
+    })
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       text: event.target.value
-    });
+    })
   }
 
   render() {
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
-    	    <label>add todo</label>
-          <input type="text" onChange={(event) => this.handleChange(event)} value={this.state.text}/>
+    	    <label>Add To-do</label>
+          <input 
+            type="text"  
+            value={this.state.text}
+            onChange={this.handleChange}
+          />
           <input type="submit" />
        </form>
      </div>
-   );
+   )
   }
-};
+}
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: formData => dispatch({ type: 'ADD_TODO', payload: formData })
+  addTodo: formData => dispatch({ 
+    type: 'ADD_TODO', 
+    payload: formData 
+  })
 })
 
-export default connect(null, mapDispatchToProps)(CreateTodo);
+export default connect(null, mapDispatchToProps)(CreateTodo)
